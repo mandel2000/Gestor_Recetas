@@ -1,0 +1,5 @@
+[0m[[0m[31merror[0m] [0m[0mF:\datos\Manuel\MIMO\2.Tecnologías del lado del servidor\2.Servicios REST\Evaluacion\Gestor_Recetas\conf\routes:2:1: type UserController is not a member of package controllers[0m
+[0m[[0m[31merror[0m] [0m[0mGET     /                           controllers.UserController.index()[0m
+[0m[[0m[31merror[0m] [0m[0mF:\datos\Manuel\MIMO\2.Tecnologías del lado del servidor\2.Servicios REST\Evaluacion\Gestor_Recetas\conf\routes:2:1: type UserController is not a member of package controllers[0m
+[0m[[0m[31merror[0m] [0m[0mGET     /                           controllers.UserController.index()[0m
+[0m[[0m[31merror[0m] [0m[0mtwo errors found[0m

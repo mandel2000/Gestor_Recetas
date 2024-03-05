@@ -1,0 +1,12 @@
+
+#GET     /                           controllers.UserController.index()
+#POST    /users                      	controllers.UserController.createUser(request: Request)
+#GET     /user/:userId               controllers.UserController.getUser(userId: Long, request: Request)
+#PUT     /users            			controllers.UserController.updateUser(request: Request)
+#PATCH   /user/:userId               controllers.UserController.partialUpdateUser(userId: Long, request: Request)
+#DELETE  /user/:userId               controllers.UserController.deleteUser(userId: Long, request: Request)
+#GET     /users                      controllers.UserController.getUsers(request: Request)
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+
