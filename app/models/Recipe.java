@@ -1,9 +1,12 @@
 package models;
 
-import io.ebean.Model;
 import jakarta.persistence.Entity;
 
 @Entity
-public class Recipe extends Model {
+public class Recipe extends BaseModel {
+
+    private String title;
+
+    private String description;
 
 }
