@@ -24,4 +24,20 @@ public class BaseModel extends Model {
     @WhenModified
     private Timestamp whenModified;
 
+    public Long getId() {
+	return id;
+    }
+
+    public Long getVersion() {
+	return version;
+    }
+
+    public Timestamp getWhenCreated() {
+	return whenCreated;
+    }
+
+    public Timestamp getWhenModified() {
+	return whenModified;
+    }
+
 }

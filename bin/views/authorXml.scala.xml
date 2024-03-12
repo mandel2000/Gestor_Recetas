@@ -1,0 +1,6 @@
+@(author: AuthorModel)
+<author id=@author.getId()>
+	<name>@author.getName()</name>
+	<surname>@author.getSurname()</surname>
+	<nationality>@author.getNationality()</nationality>
+</author>
