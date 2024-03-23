@@ -14,7 +14,7 @@ POST 	/authors					controllers.AuthorController.create(request: Request)
 PUT		/authors					controllers.AuthorController.update(request: Request)
 GET		/authors					controllers.AuthorController.getAll(request: Request)
 GET 	/author/:authorId			controllers.AuthorController.getById(authorId: Long, request: Request)
-GET 	/author/:name				controllers.AuthorControlelr.getByName(name: String, request: Request)
+GET 	/author/:name				controllers.AuthorController.getByName(name: String, request: Request)
 
 POST 	/recipes					controllers.RecipeController.create(request: Request)
 PUT		/recipes					controllers.RecipeController.update(request: Request)
