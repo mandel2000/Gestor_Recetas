@@ -16,3 +16,15 @@ GET		/authors					controllers.AuthorController.getAll(request: Request)
 GET 	/author/:authorId			controllers.AuthorController.getById(authorId: Long, request: Request)
 GET 	/author/:name				controllers.AuthorControlelr.getByName(name: String, request: Request)
 
+POST 	/recipes					controllers.RecipeController.create(request: Request)
+PUT		/recipes					controllers.RecipeController.update(request: Request)
+GET		/recipes					controllers.RecipeController.getAll(request: Request)
+GET 	/recipe/:recipeId			controllers.RecipeController.getById(recipeId: Long, request: Request)
+GET 	/recipe/:title				controllers.RecipeController.getByTitle(title: String, request: Request)
+
+POST 	/ingredients				controllers.IngredientController.create(request: Request)
+PUT		/ingredients				controllers.IngredientController.update(request: Request)
+GET		/ingredients				controllers.IngredientController.getAll(request: Request)
+GET 	/ingredient/:ingredientId	controllers.IngredientController.getById(ingredientId: Long, request: Request)
+GET 	/ingredient/:name			controllers.IngredientController.getByName(name: String, request: Request)
+
