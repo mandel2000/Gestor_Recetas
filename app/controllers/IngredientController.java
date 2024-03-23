@@ -2,7 +2,7 @@ package controllers;
 
 import java.util.List;
 
-import models.Author;
+import models.Ingredient;
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
@@ -12,44 +12,44 @@ public class IngredientController extends Controller {
 
     public Result create(Http.Request request) {
 
-	Author createdAuthor = Author.fromJson(request.body().asJson());
+	Ingredient createdIngredient = Ingredient.fromJson(request.body().asJson());
 
-	if (Author.findByNameAndSurname(createdAuthor.getName(), createdAuthor.getSurname()).isEmpty()) {
-	    createdAuthor.save();
+	if (Ingredient.findByName(createdIngredient.getName()).isEmpty()) {
+	    createdIngredient.save();
 
 	    if (request.accepts("application/xml")) {
 
-		return Results.created(views.xml.authorXml.render(createdAuthor)).as("application/xml");
+		return Results.created(views.xml.IngredientXml.render(createdIngredient)).as("application/xml");
 
 	    } else if (request.accepts("application/json")) {
 
-		return Results.created(createdAuthor.asJson()).as("application/json");
+		return Results.created(createdIngredient.asJson()).as("application/json");
 
 	    } else {
 
 		return badRequest("Unsupported format");
 	    }
 	} else {
-	    return badRequest("Error, author already exists");
+	    return badRequest("Error, Ingredient already exists");
 	}
 
     }
 
     public Result update(Http.Request request) {
 
-	Author authorToUpdate = Author.fromJson(request.body().asJson());
+	Ingredient ingredientToUpdate = Ingredient.fromJson(request.body().asJson());
 
-	if (Author.findById(authorToUpdate.getId()) != null) {
+	if (Ingredient.findById(ingredientToUpdate.getId()) != null) {
 
-	    authorToUpdate.update();
+	    ingredientToUpdate.update();
 
 	    if (request.accepts("application/xml")) {
 
-		return Results.ok(views.xml.authorXml.render(authorToUpdate)).as("application/xml");
+		return Results.ok(views.xml.IngredientXml.render(ingredientToUpdate)).as("application/xml");
 
 	    } else if (request.accepts("application/json")) {
 
-		return ok(authorToUpdate.asJson()).as("application/json");
+		return ok(ingredientToUpdate.asJson()).as("application/json");
 
 	    } else {
 
@@ -57,7 +57,7 @@ public class IngredientController extends Controller {
 	    }
 
 	} else {
-	    return badRequest("Error, author not found");
+	    return badRequest("Error, Ingredient not found");
 	}
     }
 
@@ -65,11 +65,11 @@ public class IngredientController extends Controller {
 
 	if (request.accepts("application/xml")) {
 
-	    return Results.ok(views.xml.authorList.render(Author.findAll())).as("application/xml");
+	    return Results.ok(views.xml.IngredientList.render(Ingredient.findAll())).as("application/xml");
 
 	} else if (request.accepts("application/json")) {
 
-	    return Results.ok(play.libs.Json.toJson(Author.findAll())).as("application/json");
+	    return Results.ok(play.libs.Json.toJson(Ingredient.findAll())).as("application/json");
 
 	} else {
 
@@ -79,17 +79,17 @@ public class IngredientController extends Controller {
 
     public Result getById(Long id, Http.Request request) {
 
-	Author author = Author.findById(id);
+	Ingredient ingredient = Ingredient.findById(id);
 
-	if (author != null) {
+	if (ingredient != null) {
 
 	    if (request.accepts("application/xml")) {
 
-		return Results.ok(views.xml.authorXml.render(author)).as("application/xml");
+		return Results.ok(views.xml.IngredientXml.render(ingredient)).as("application/xml");
 
 	    } else if (request.accepts("application/json")) {
 
-		return Results.ok(author.asJson()).as("application/json");
+		return Results.ok(ingredient.asJson()).as("application/json");
 
 	    } else {
 
@@ -103,17 +103,17 @@ public class IngredientController extends Controller {
 
     public Result getByName(String name, Http.Request request) {
 
-	List<Author> authors = Author.findByName(name);
+	List<Ingredient> ingredients = Ingredient.findByName(name);
 
-	if (authors != null) {
+	if (ingredients != null) {
 
 	    if (request.accepts("application/xml")) {
 
-		return Results.ok(views.xml.authorList.render(authors)).as("application/xml");
+		return Results.ok(views.xml.IngredientList.render(ingredients)).as("application/xml");
 
 	    } else if (request.accepts("application/json")) {
 
-		return Results.ok(play.libs.Json.toJson(Author.findAll())).as("application/json");
+		return Results.ok(play.libs.Json.toJson(ingredients)).as("application/json");
 
 	    } else {
 
