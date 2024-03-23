@@ -19,7 +19,7 @@ public class RecipeController extends Controller {
 
 	    if (request.accepts("application/xml")) {
 
-		return Results.created(views.xml.RecipeXml.render(createdRecipe)).as("application/xml");
+		return Results.created(views.xml.recipeXml.render(createdRecipe)).as("application/xml");
 
 	    } else if (request.accepts("application/json")) {
 
@@ -45,7 +45,7 @@ public class RecipeController extends Controller {
 
 	    if (request.accepts("application/xml")) {
 
-		return Results.ok(views.xml.RecipeXml.render(recipeToUpdate)).as("application/xml");
+		return Results.ok(views.xml.recipeXml.render(recipeToUpdate)).as("application/xml");
 
 	    } else if (request.accepts("application/json")) {
 
@@ -65,7 +65,7 @@ public class RecipeController extends Controller {
 
 	if (request.accepts("application/xml")) {
 
-	    return Results.ok(views.xml.RecipeList.render(Recipe.findAll())).as("application/xml");
+	    return Results.ok(views.xml.recipeList.render(Recipe.findAll())).as("application/xml");
 
 	} else if (request.accepts("application/json")) {
 
@@ -85,7 +85,7 @@ public class RecipeController extends Controller {
 
 	    if (request.accepts("application/xml")) {
 
-		return Results.ok(views.xml.RecipeXml.render(recipe)).as("application/xml");
+		return Results.ok(views.xml.recipeXml.render(recipe)).as("application/xml");
 
 	    } else if (request.accepts("application/json")) {
 
@@ -109,7 +109,7 @@ public class RecipeController extends Controller {
 
 	    if (request.accepts("application/xml")) {
 
-		return Results.ok(views.xml.RecipeList.render(recipes)).as("application/xml");
+		return Results.ok(views.xml.recipeList.render(recipes)).as("application/xml");
 
 	    } else if (request.accepts("application/json")) {
 

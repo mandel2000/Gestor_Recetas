@@ -1,4 +1,4 @@
-@(ingredients: ArrayList[Ingredient])
+@(ingredients: List[Ingredient])
 
 
 <ingredients length=@ingredients.size()>

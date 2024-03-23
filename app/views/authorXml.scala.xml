@@ -1,4 +1,4 @@
-@(author: AuthorModel)
+@(author: Author)
 <author id=@author.getId()>
 	<name>@author.getName()</name>
 	<surname>@author.getSurname()</surname>

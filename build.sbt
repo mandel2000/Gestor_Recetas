@@ -15,8 +15,9 @@ libraryDependencies += jdbc
 libraryDependencies += "com.h2database" % "h2" % "2.1.214"
 libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.4.5"
 libraryDependencies += "org.fusesource.jansi" % "jansi" % "1.18"
+libraryDependencies += ehcache
 
-play.evolutions.autoApply = true
+//play.evolutions.autoApply = true
 
 // Java project. Don't expect Scala IDE
 EclipseKeys.projectFlavor := EclipseProjectFlavor.Java
