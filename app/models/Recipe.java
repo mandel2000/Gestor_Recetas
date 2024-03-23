@@ -3,12 +3,15 @@ package models;
 import java.util.List;
 import java.util.Set;
 
+import com.fasterxml.jackson.databind.JsonNode;
+
 import io.ebean.Finder;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import play.libs.Json;
 
 @Entity
 @Table(name = "RECIPES")
@@ -36,6 +39,19 @@ public class Recipe extends BaseModel {
     public static List<Recipe> findAll() {
 	return find.all();
 
+    }
+
+    public static List<Recipe> findByTitle(String title) {
+	return find.query().where().eq("title", title).findList();
+    }
+
+    public static Recipe fromJson(JsonNode json) {
+	return Json.fromJson(json, Recipe.class);
+
+    }
+
+    public JsonNode asJson() {
+	return Json.toJson(this);
     }
 
     public String getTitle() {
