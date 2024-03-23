@@ -1,0 +1,8 @@
+@(recipes: ArrayList[Recipe])
+
+
+<recipes length=@recipes.size()>
+	@for(recipe <- recipes) {
+		@recipeXml(recipe)
+	}
+</recipes>
