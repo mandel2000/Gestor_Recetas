@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 import io.ebean.Finder;
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import play.libs.Json;
 
@@ -18,6 +19,9 @@ public class Author extends BaseModel {
     private String surname;
 
     private String nationality;
+
+    @OneToMany(mappedBy = "recipe")
+    private List<Recipe> recipes;
 
     public static final Finder<Long, Author> find = new Finder<>(Author.class);
 
@@ -34,9 +38,7 @@ public class Author extends BaseModel {
 	return find.query().where().eq("name", name).findList();
     }
 
-    public
-
-    static List<Author> findByNameAndSurname(String name, String surname) {
+    public static List<Author> findByNameAndSurname(String name, String surname) {
 	return find.query().where().eq("name", name).and().eq("surname", surname).findList();
     }
 
