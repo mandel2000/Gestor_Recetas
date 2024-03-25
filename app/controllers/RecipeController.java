@@ -2,6 +2,11 @@ package controllers;
 
 import java.util.List;
 
+import com.fasterxml.jackson.databind.JsonNode;
+
+import io.ebean.annotation.Transactional;
+import models.Author;
+import models.Ingredient;
 import models.Recipe;
 import play.mvc.Controller;
 import play.mvc.Http;
@@ -10,11 +15,34 @@ import play.mvc.Results;
 
 public class RecipeController extends Controller {
 
+    @Transactional
     public Result create(Http.Request request) {
 
 	Recipe createdRecipe = Recipe.fromJson(request.body().asJson());
 
 	if (Recipe.findByTitle(createdRecipe.getTitle()).isEmpty()) {
+
+	    JsonNode authorJsonNode = request.body().asJson().get("author");
+
+	    if (null != authorJsonNode) {
+
+		Author authorToCreate = Author.fromJson(authorJsonNode);
+		authorToCreate.save();
+		createdRecipe.setAuthor(authorToCreate);
+	    }
+
+	    JsonNode ingredientsJsonNode = request.body().asJson().get("ingredients");
+
+	    if (null != ingredientsJsonNode) {
+		List<Ingredient> ingredients = Ingredient.listFromJson(ingredientsJsonNode);
+
+		ingredients.forEach((ingredient) -> {
+		    ingredient.save();
+		});
+
+		createdRecipe.setIngredients(ingredients);
+	    }
+
 	    createdRecipe.save();
 
 	    if (request.accepts("application/xml")) {

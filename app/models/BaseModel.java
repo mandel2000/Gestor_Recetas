@@ -24,6 +24,18 @@ public class BaseModel extends Model {
     @WhenModified
     private Timestamp whenModified;
 
+    public BaseModel() {
+	super();
+    }
+
+    public BaseModel(Long id, Long version, Timestamp whenCreated, Timestamp whenModified) {
+	super();
+	this.id = id;
+	this.version = version;
+	this.whenCreated = whenCreated;
+	this.whenModified = whenModified;
+    }
+
     public Long getId() {
 	return id;
     }

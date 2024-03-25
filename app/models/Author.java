@@ -20,7 +20,7 @@ public class Author extends BaseModel {
 
     private String nationality;
 
-    @OneToMany(mappedBy = "recipe")
+    @OneToMany(mappedBy = "author")
     private List<Recipe> recipes;
 
     public static final Finder<Long, Author> find = new Finder<>(Author.class);
@@ -50,6 +50,18 @@ public class Author extends BaseModel {
 
     public JsonNode asJson() {
 	return Json.toJson(this);
+    }
+
+    public Author() {
+	super();
+    }
+
+    public Author(String name, String surname, String nationality, List<Recipe> recipes) {
+	super();
+	this.name = name;
+	this.surname = surname;
+	this.nationality = nationality;
+	this.recipes = recipes;
     }
 
     public String getName() {

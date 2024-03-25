@@ -1,15 +1,15 @@
 package models;
 
 import java.util.List;
-import java.util.Set;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
 import io.ebean.Finder;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import play.libs.Json;
 
@@ -24,11 +24,12 @@ public class Recipe extends BaseModel {
     private Integer duration;
 
     @ManyToOne
-    @JoinColumn(name = "author_id", nullable = false)
+    @JoinColumn(name = "author_id", nullable = true)
     private Author author;
 
-    @OneToMany(mappedBy = "recipe")
-    private Set<RecipeIngredient> ingredients;
+    @ManyToMany
+    @JoinTable(name = "recipe_ingredient", joinColumns = @JoinColumn(name = "recipe_id"), inverseJoinColumns = @JoinColumn(name = "ingredient_id"))
+    private List<Ingredient> ingredients;
 
     public static final Finder<Long, Recipe> find = new Finder<>(Recipe.class);
 
@@ -52,6 +53,19 @@ public class Recipe extends BaseModel {
 
     public JsonNode asJson() {
 	return Json.toJson(this);
+    }
+
+    public Recipe(String title, String description, Integer duration, Author author, List<Ingredient> ingredients) {
+	super();
+	this.title = title;
+	this.description = description;
+	this.duration = duration;
+	this.author = author;
+	this.ingredients = ingredients;
+    }
+
+    public Recipe() {
+	super();
     }
 
     public String getTitle() {
@@ -86,11 +100,11 @@ public class Recipe extends BaseModel {
 	this.author = author;
     }
 
-    public Set<RecipeIngredient> getIngredients() {
+    public List<Ingredient> getIngredients() {
 	return ingredients;
     }
 
-    public void setIngredients(Set<RecipeIngredient> ingredients) {
+    public void setIngredients(List<Ingredient> ingredients) {
 	this.ingredients = ingredients;
     }
 

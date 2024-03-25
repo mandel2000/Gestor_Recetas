@@ -1,6 +1,5 @@
 @(ingredients: List[Ingredient])
 
-
 <ingredients length=@ingredients.size()>
 	@for(ingredient <- ingredients) {
 		@ingredientXml(ingredient)
