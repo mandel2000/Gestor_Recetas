@@ -28,3 +28,7 @@ GET		/ingredients				controllers.IngredientController.getAll(request: Request)
 GET 	/ingredient/:ingredientId	controllers.IngredientController.getById(ingredientId: Long, request: Request)
 GET 	/ingredient/:name			controllers.IngredientController.getByName(name: String, request: Request)
 
+POST 	/users						controllers.AuthController.create(request: Request)
+POST 	/user/login 				controllers.AuthController.login(request: Request)
+GET		/users						controllers.AuthController.findAll(request: Request)
+GET		/users/token				controllers.AuthController.checkToken(request: Request)

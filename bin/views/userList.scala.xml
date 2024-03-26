@@ -1,0 +1,6 @@
+@(users: List[User])
+<authors length=@users.size()>
+	@for(user <- users) {
+		@userXml(user)
+	}
+</authors>

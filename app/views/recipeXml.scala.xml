@@ -3,4 +3,8 @@
 	<name>@recipe.getTitle()</name>
 	<description>@recipe.getDescription()</description>
 	<duration>@recipe.getDuration()</duration>
+	@if(recipe.getAuthor() != null) {
+		@authorXml(recipe.getAuthor())
+	}
+	@ingredientList(recipe.getIngredients())
 </recipe>

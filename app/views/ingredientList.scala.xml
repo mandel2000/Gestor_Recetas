@@ -3,5 +3,4 @@
 <ingredients length=@ingredients.size()>
 	@for(ingredient <- ingredients) {
 		@ingredientXml(ingredient)
-	}
-</ingredients>
+	}</ingredients>
