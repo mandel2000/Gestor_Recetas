@@ -3,8 +3,17 @@ package utils;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+/**
+ * The Class PasswordEncryptUtils.
+ */
 public class PasswordEncryptUtils {
 
+    /**
+     * Encrypt.
+     *
+     * @param password the password
+     * @return the string
+     */
     public static String encrypt(String password) {
 	try {
 	    MessageDigest digest = MessageDigest.getInstance("SHA-256");
@@ -24,6 +33,13 @@ public class PasswordEncryptUtils {
 	}
     }
 
+    /**
+     * Check password.
+     *
+     * @param plainPassword the plain password
+     * @param hashedPassword the hashed password
+     * @return true, if successful
+     */
     public static boolean checkPassword(String plainPassword, String hashedPassword) {
 
 	return encrypt(plainPassword).equals(hashedPassword);

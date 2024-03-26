@@ -11,10 +11,19 @@ import play.mvc.Result;
 import play.mvc.Results;
 import play.mvc.With;
 
+/**
+ * The Class AuthorController.
+ */
 @With(AuthAction.class)
 @AddCSRFToken
 public class AuthorController extends Controller {
 
+    /**
+     * Creates the.
+     *
+     * @param request the request
+     * @return the result
+     */
     public Result create(Http.Request request) {
 
 	Author createdAuthor = Author.fromJson(request.body().asJson());
@@ -40,6 +49,12 @@ public class AuthorController extends Controller {
 
     }
 
+    /**
+     * Update.
+     *
+     * @param request the request
+     * @return the result
+     */
     public Result update(Http.Request request) {
 
 	Author authorToUpdate = Author.fromJson(request.body().asJson());
@@ -66,6 +81,12 @@ public class AuthorController extends Controller {
 	}
     }
 
+    /**
+     * Gets the all.
+     *
+     * @param request the request
+     * @return the all
+     */
     public Result getAll(Http.Request request) {
 
 	if (request.accepts("application/xml")) {
@@ -82,6 +103,13 @@ public class AuthorController extends Controller {
 	}
     }
 
+    /**
+     * Gets the by id.
+     *
+     * @param id the id
+     * @param request the request
+     * @return the by id
+     */
     public Result getById(Long id, Http.Request request) {
 
 	Author author = Author.findById(id);
@@ -106,6 +134,13 @@ public class AuthorController extends Controller {
 	}
     }
 
+    /**
+     * Gets the by name.
+     *
+     * @param name the name
+     * @param request the request
+     * @return the by name
+     */
     public Result getByName(String name, Http.Request request) {
 
 	List<Author> authors = Author.findByName(name);

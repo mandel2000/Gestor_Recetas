@@ -8,8 +8,17 @@ import play.mvc.Action.Simple;
 import play.mvc.Http.Request;
 import play.mvc.Result;
 
+/**
+ * The Class AuthAction.
+ */
 public class AuthAction extends Simple {
 
+    /**
+     * Call.
+     *
+     * @param req the req
+     * @return the completion stage
+     */
     @Override
     public CompletionStage<Result> call(Request req) {
 

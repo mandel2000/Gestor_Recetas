@@ -17,10 +17,19 @@ import play.mvc.Result;
 import play.mvc.Results;
 import play.mvc.With;
 
+/**
+ * The Class RecipeController.
+ */
 @With(AuthAction.class)
 @AddCSRFToken
 public class RecipeController extends Controller {
 
+    /**
+     * Creates the.
+     *
+     * @param request the request
+     * @return the result
+     */
     @Transactional
     public Result create(Http.Request request) {
 
@@ -78,6 +87,12 @@ public class RecipeController extends Controller {
 
     }
 
+    /**
+     * Gets the recipe author.
+     *
+     * @param author the author
+     * @return the recipe author
+     */
     private Author getRecipeAuthor(Author author) {
 
 	List<Author> tempAuthor = Author.findByNameAndSurname(author.getName(), author.getSurname());
@@ -90,6 +105,12 @@ public class RecipeController extends Controller {
 
     }
 
+    /**
+     * Update.
+     *
+     * @param request the request
+     * @return the result
+     */
     public Result update(Http.Request request) {
 
 	Recipe recipeToUpdate = Recipe.fromJson(request.body().asJson());
@@ -116,6 +137,12 @@ public class RecipeController extends Controller {
 	}
     }
 
+    /**
+     * Gets the all.
+     *
+     * @param request the request
+     * @return the all
+     */
     public Result getAll(Http.Request request) {
 
 	if (request.accepts("application/xml")) {
@@ -132,6 +159,13 @@ public class RecipeController extends Controller {
 	}
     }
 
+    /**
+     * Gets the by id.
+     *
+     * @param id the id
+     * @param request the request
+     * @return the by id
+     */
     public Result getById(Long id, Http.Request request) {
 
 	Recipe recipe = Recipe.findById(id);
@@ -156,6 +190,13 @@ public class RecipeController extends Controller {
 	}
     }
 
+    /**
+     * Gets the by title.
+     *
+     * @param title the title
+     * @param request the request
+     * @return the by title
+     */
     public Result getByTitle(String title, Http.Request request) {
 
 	List<Recipe> recipes = Recipe.findByTitle(title);

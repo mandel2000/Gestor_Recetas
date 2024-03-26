@@ -11,8 +11,17 @@ import play.mvc.Result;
 import play.mvc.Results;
 import utils.PasswordEncryptUtils;
 
+/**
+ * The Class AuthController.
+ */
 public class AuthController extends Controller {
 
+    /**
+     * Creates the.
+     *
+     * @param request the request
+     * @return the result
+     */
     public Result create(Http.Request request) {
 
 	try {
@@ -45,6 +54,12 @@ public class AuthController extends Controller {
 	}
     }
 
+    /**
+     * Login.
+     *
+     * @param request the request
+     * @return the result
+     */
     public Result login(Http.Request request) {
 
 	try {
@@ -74,6 +89,12 @@ public class AuthController extends Controller {
 
     }
 
+    /**
+     * Find all.
+     *
+     * @param request the request
+     * @return the result
+     */
     public Result findAll(Http.Request request) {
 
 	if (request.accepts("application/xml")) {
@@ -90,9 +111,26 @@ public class AuthController extends Controller {
 	}
     }
 
+    /**
+     * Check token.
+     *
+     * @param request the request
+     * @return the result
+     */
     public Result checkToken(Http.Request request) {
 
 	return ok(JwtAuthorizationUtils.validateToken(request.header("Authorization").orElse("")) ? "OK" : "NO");
 
+    }
+
+    /**
+     * Healthcheck.
+     *
+     * @param request the request
+     * @return the result
+     */
+    public Result healthcheck(Http.Request request) {
+
+	return ok("HEALTHCHECK OK");
     }
 }
