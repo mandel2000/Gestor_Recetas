@@ -1,18 +1,24 @@
 package controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
+import action.AuthAction;
 import io.ebean.annotation.Transactional;
 import models.Author;
 import models.Ingredient;
 import models.Recipe;
+import play.filters.csrf.AddCSRFToken;
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
 import play.mvc.Results;
+import play.mvc.With;
 
+@With(AuthAction.class)
+@AddCSRFToken
 public class RecipeController extends Controller {
 
     @Transactional
@@ -27,20 +33,29 @@ public class RecipeController extends Controller {
 	    if (null != authorJsonNode) {
 
 		Author authorToCreate = Author.fromJson(authorJsonNode);
-		authorToCreate.save();
-		createdRecipe.setAuthor(authorToCreate);
+
+		createdRecipe.setAuthor(getRecipeAuthor(authorToCreate));
 	    }
 
 	    JsonNode ingredientsJsonNode = request.body().asJson().get("ingredients");
 
 	    if (null != ingredientsJsonNode) {
-		List<Ingredient> ingredients = Ingredient.listFromJson(ingredientsJsonNode);
+		List<Ingredient> jsonIngredients = Ingredient.listFromJson(ingredientsJsonNode);
+		List<Ingredient> recipeIngredients = new ArrayList<>();
 
-		ingredients.forEach((ingredient) -> {
-		    ingredient.save();
+		jsonIngredients.forEach((ingredient) -> {
+
+		    List<Ingredient> temp = Ingredient.findByName(ingredient.getName());
+		    if (temp.isEmpty()) {
+			ingredient.save();
+			recipeIngredients.add(ingredient);
+		    } else {
+			recipeIngredients.add(temp.get(0));
+		    }
+
 		});
 
-		createdRecipe.setIngredients(ingredients);
+		createdRecipe.setIngredients(recipeIngredients);
 	    }
 
 	    createdRecipe.save();
@@ -60,6 +75,18 @@ public class RecipeController extends Controller {
 	} else {
 	    return badRequest("Error, Recipe already exists");
 	}
+
+    }
+
+    private Author getRecipeAuthor(Author author) {
+
+	List<Author> tempAuthor = Author.findByNameAndSurname(author.getName(), author.getSurname());
+	if (tempAuthor.isEmpty()) {
+	    author.save();
+	    return author;
+	}
+
+	return tempAuthor.get(0);
 
     }
 
