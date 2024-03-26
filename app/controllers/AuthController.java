@@ -56,7 +56,7 @@ public class AuthController extends Controller {
 	    if (!registeredUser.isEmpty()) {
 
 		if (PasswordEncryptUtils.checkPassword(user.getPassword(), registeredUser.get(0).getPassword())) {
-		    String jsonTemplate = "{\"token\":\"Bearer %s\"}";
+		    String jsonTemplate = "{\"token\":\"%s\"}";
 		    String token = JwtAuthorizationUtils.generateToken(user.getUsername());
 
 		    return ok(Json.parse(String.format(jsonTemplate, token)));

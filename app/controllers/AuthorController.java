@@ -2,12 +2,17 @@ package controllers;
 
 import java.util.List;
 
+import action.AuthAction;
 import models.Author;
+import play.filters.csrf.AddCSRFToken;
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
 import play.mvc.Results;
+import play.mvc.With;
 
+@With(AuthAction.class)
+@AddCSRFToken
 public class AuthorController extends Controller {
 
     public Result create(Http.Request request) {
