@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import io.ebean.Finder;
 import io.ebean.annotation.NotNull;
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import play.libs.Json;
 
@@ -24,6 +25,9 @@ public class User extends BaseModel {
     /** The password. */
     @NotNull
     private String password;
+
+    @OneToOne
+    private UserInfo userInfo;
 
     /** The Constant find. */
     public static final Finder<Long, User> find = new Finder<>(User.class);
@@ -85,10 +89,11 @@ public class User extends BaseModel {
      * @param username the username
      * @param password the password
      */
-    public User(String username, String password) {
+    public User(String username, String password, UserInfo userInfo) {
 	super();
 	this.username = username;
 	this.password = password;
+	this.userInfo = userInfo;
     }
 
     /**
@@ -132,6 +137,14 @@ public class User extends BaseModel {
      */
     public void setPassword(String password) {
 	this.password = password;
+    }
+
+    public UserInfo getUserInfo() {
+	return userInfo;
+    }
+
+    public void setUserInfo(UserInfo userInfo) {
+	this.userInfo = userInfo;
     }
 
 }

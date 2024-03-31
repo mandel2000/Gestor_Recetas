@@ -3,10 +3,13 @@ package controllers;
 import java.util.List;
 
 import auth.JwtAuthorizationUtils;
+import io.ebean.annotation.Transactional;
 import models.User;
+import models.UserInfo;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Http;
+import play.mvc.Http.Request;
 import play.mvc.Result;
 import play.mvc.Results;
 import utils.PasswordEncryptUtils;
@@ -90,28 +93,6 @@ public class AuthController extends Controller {
     }
 
     /**
-     * Find all.
-     *
-     * @param request the request
-     * @return the result
-     */
-    public Result findAll(Http.Request request) {
-
-	if (request.accepts("application/xml")) {
-
-	    return Results.ok(views.xml.userList.render(User.findAll())).as("application/xml");
-
-	} else if (request.accepts("application/json")) {
-
-	    return Results.ok(play.libs.Json.toJson(User.findAll())).as("application/json");
-
-	} else {
-
-	    return badRequest("Unsupported format");
-	}
-    }
-
-    /**
      * Check token.
      *
      * @param request the request
@@ -132,5 +113,22 @@ public class AuthController extends Controller {
     public Result healthcheck(Http.Request request) {
 
 	return ok("HEALTHCHECK OK");
+    }
+
+    @Transactional
+    public Result delete(Long id, Request request) {
+
+	User user = User.findById(id);
+
+	if (null == user) {
+	    return notFound("Error, user not exists");
+	}
+
+	UserInfo userInfo = user.getUserInfo();
+
+	userInfo.delete();
+	user.delete();
+
+	return ok("User successfully deleted");
     }
 }
