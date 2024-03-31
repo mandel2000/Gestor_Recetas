@@ -3,6 +3,8 @@ package controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import com.fasterxml.jackson.databind.JsonNode;
 
 import action.AuthAction;
@@ -10,9 +12,12 @@ import io.ebean.annotation.Transactional;
 import models.Author;
 import models.Ingredient;
 import models.Recipe;
+import play.data.Form;
+import play.data.FormFactory;
 import play.filters.csrf.AddCSRFToken;
 import play.mvc.Controller;
 import play.mvc.Http;
+import play.mvc.Http.Request;
 import play.mvc.Result;
 import play.mvc.Results;
 import play.mvc.With;
@@ -23,6 +28,19 @@ import play.mvc.With;
 @With(AuthAction.class)
 @AddCSRFToken
 public class RecipeController extends Controller {
+
+    /** The form factory. */
+    private final FormFactory formFactory;
+
+    /**
+     * Instantiates a new user controller.
+     *
+     * @param formFactory the form factory
+     */
+    @Inject
+    public RecipeController(FormFactory formFactory) {
+	this.formFactory = formFactory;
+    }
 
     /**
      * Creates the.
@@ -162,7 +180,7 @@ public class RecipeController extends Controller {
     /**
      * Gets the by id.
      *
-     * @param id the id
+     * @param id      the id
      * @param request the request
      * @return the by id
      */
@@ -193,7 +211,7 @@ public class RecipeController extends Controller {
     /**
      * Gets the by title.
      *
-     * @param title the title
+     * @param title   the title
      * @param request the request
      * @return the by title
      */
@@ -219,6 +237,88 @@ public class RecipeController extends Controller {
 	} else {
 	    return Results.noContent();
 	}
+    }
+
+    @Transactional
+    public Result addIngredient(Long id, Request request) {
+
+	Recipe recipe = Recipe.findById(id);
+
+	if (null == recipe) {
+	    return notFound("Error, recipe not exists");
+	}
+
+	Form<Ingredient> form = formFactory.form(Ingredient.class).bindFromRequest(request);
+	if (form.hasErrors()) {
+	    return badRequest(form.errorsAsJson());
+	}
+
+	List<Ingredient> ingredient = Ingredient.findByName(form.get().getName());
+
+	if (ingredient == null) {
+
+	    ingredient.get(0).save();
+
+	}
+
+	recipe.addIngredient(ingredient.get(0));
+
+	recipe.save();
+
+	if (request.accepts("application/xml")) {
+
+	    return Results.created(views.xml.recipeXml.render(recipe)).as("application/xml");
+
+	} else if (request.accepts("application/json")) {
+
+	    return Results.created(recipe.asJson()).as("application/json");
+
+	} else {
+
+	    return badRequest("Unsupported format");
+	}
+
+    }
+
+    @Transactional
+    public Result addAuthor(Long id, Request request) {
+
+	Recipe recipe = Recipe.findById(id);
+
+	if (null == recipe) {
+	    return notFound("Error, recipe not exists");
+	}
+
+	Form<Author> form = formFactory.form(Author.class).bindFromRequest(request);
+	if (form.hasErrors()) {
+	    return badRequest(form.errorsAsJson());
+	}
+
+	List<Author> author = Author.findByNameAndSurname(form.get().getName(), form.get().getSurname());
+
+	if (author == null) {
+
+	    author.get(0).save();
+
+	}
+
+	recipe.setAuthor(author.get(0));
+
+	recipe.save();
+
+	if (request.accepts("application/xml")) {
+
+	    return Results.created(views.xml.recipeXml.render(recipe)).as("application/xml");
+
+	} else if (request.accepts("application/json")) {
+
+	    return Results.created(recipe.asJson()).as("application/json");
+
+	} else {
+
+	    return badRequest("Unsupported format");
+	}
+
     }
 
 }

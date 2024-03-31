@@ -95,10 +95,10 @@ public class Recipe extends BaseModel {
     /**
      * Instantiates a new recipe.
      *
-     * @param title the title
+     * @param title       the title
      * @param description the description
-     * @param duration the duration
-     * @param author the author
+     * @param duration    the duration
+     * @param author      the author
      * @param ingredients the ingredients
      */
     public Recipe(String title, String description, Integer duration, Author author, List<Ingredient> ingredients) {
@@ -205,6 +205,10 @@ public class Recipe extends BaseModel {
      */
     public void setIngredients(List<Ingredient> ingredients) {
 	this.ingredients = ingredients;
+    }
+
+    public void addIngredient(Ingredient ingredient) {
+	this.ingredients.add(ingredient);
     }
 
 }
