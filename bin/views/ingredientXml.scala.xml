@@ -1,6 +1,5 @@
 @(ingredient: Ingredient)
 <ingredient id=@ingredient.getId()>
 	<name>@ingredient.getName()</name>
-	<surname>@ingredient.getSurname()</surname>
-	<nationality>@ingredient.getNationality()</nationality>
+	<family>@ingredient.getFamily()</family>
 </ingredient>

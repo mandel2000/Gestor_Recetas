@@ -1,6 +1,4 @@
-@(authors: ArrayList[Author])
-
-
+@(authors: List[Author])
 <authors length=@authors.size()>
 	@for(author <- authors) {
 		@authorXml(author)

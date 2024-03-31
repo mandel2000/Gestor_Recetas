@@ -1,6 +1,10 @@
 @(recipe: Recipe)
 <recipe id=@recipe.getId()>
 	<name>@recipe.getTitle()</name>
-	<surname>@recipe.getDescription()</surname>
-	<nationality>@recipe.getDuration()</nationality>
+	<description>@recipe.getDescription()</description>
+	<duration>@recipe.getDuration()</duration>
+	@if(recipe.getAuthor() != null) {
+		@authorXml(recipe.getAuthor())
+	}
+	@ingredientList(recipe.getIngredients())
 </recipe>

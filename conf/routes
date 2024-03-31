@@ -1,12 +1,3 @@
-
-#GET     /                           controllers.UserController.index()
-#POST    /users                      	controllers.UserController.createUser(request: Request)
-#GET     /user/:userId               controllers.UserController.getUser(userId: Long, request: Request)
-#PUT     /users            			controllers.UserController.updateUser(request: Request)
-#PATCH   /user/:userId               controllers.UserController.partialUpdateUser(userId: Long, request: Request)
-#DELETE  /user/:userId               controllers.UserController.deleteUser(userId: Long, request: Request)
-#GET     /users                      controllers.UserController.getUsers(request: Request)
-
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
 
@@ -16,11 +7,15 @@ GET		/authors					controllers.AuthorController.getAll(request: Request)
 GET 	/author/:authorId			controllers.AuthorController.getById(authorId: Long, request: Request)
 GET 	/author/:name				controllers.AuthorController.getByName(name: String, request: Request)
 
+
 POST 	/recipes					controllers.RecipeController.create(request: Request)
 PUT		/recipes					controllers.RecipeController.update(request: Request)
 GET		/recipes					controllers.RecipeController.getAll(request: Request)
 GET 	/recipe/:recipeId			controllers.RecipeController.getById(recipeId: Long, request: Request)
 GET 	/recipe/:title				controllers.RecipeController.getByTitle(title: String, request: Request)
+POST	/recipe/ingredient/:id		controllers.RecipeController.addIngredient(id: Long, request: Request)
+POST	/recipe/author/:id			controllers.RecipeController.addAuthor(id: Long, request: Request)
+
 
 POST 	/ingredients				controllers.IngredientController.create(request: Request)
 PUT		/ingredients				controllers.IngredientController.update(request: Request)
@@ -30,5 +25,10 @@ GET 	/ingredient/:name			controllers.IngredientController.getByName(name: String
 
 POST 	/users						controllers.AuthController.create(request: Request)
 POST 	/user/login 				controllers.AuthController.login(request: Request)
-GET		/users						controllers.AuthController.findAll(request: Request)
+DELETE	/user/:userId				controllers.AuthController.delete(userId:Long, request:Request)	
+GET		/users						controllers.UserController.findAll(request: Request)
+GET 	/user/:userId				controllers.UserController.findById(userId:Long, request:Request)
+POST 	/user/info/:userId			controllers.UserController.addUserInfo(userId:Long, request:Request)
+PUT		/user/info/:userId			controllers.UserController.updateUserInfo(userId:Long, request:Request)
 GET		/users/token				controllers.AuthController.checkToken(request: Request)
+GET		/healthCheck				controllers.AuthController.checkToken(request: Request)
